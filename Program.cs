@@ -4,7 +4,7 @@ using Ensage;
 using Ensage.Common.Menu;
 using SharpDX;
 using Ensage.Common.Extensions;
-using Ensage.Common.Menu;
+
 
 namespace TehPucuk
 {
@@ -14,6 +14,7 @@ namespace TehPucuk
         private static bool ownTowers = true;
         private static bool enemyTowers = true;
         private static Hero me;
+        private static float lastRange;
         private static readonly Menu Menu = new Menu("TowerRange", "towerRange", true);
         // ReSharper disable once CollectionNeverQueried.Local
         private static readonly List<ParticleEffect> Effects = new List<ParticleEffect>(); // keep references
