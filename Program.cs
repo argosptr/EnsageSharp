@@ -10,12 +10,12 @@ namespace TehPucuk
 {
     internal class Program
     {
-        private static ParticleEffect rangeDisplay;
         private static bool ownTowers = true;
         private static bool enemyTowers = true;
-        private static Hero me;
-        private static float lastRange;
-        private static readonly Menu Menu = new Menu("TowerRange", "towerRange", true);
+        private static bool attackrange = true;
+		private static ParticleEffect rangeDisplay;
+		private static float lastRange;
+        private static readonly Menu Menu = new Menu("Display", "towerRange", true);
         // ReSharper disable once CollectionNeverQueried.Local
         private static readonly List<ParticleEffect> Effects = new List<ParticleEffect>(); // keep references
 
@@ -23,25 +23,24 @@ namespace TehPucuk
         {
             var ally = new MenuItem("ownTowers", "Range of allied towers").SetValue(true);
             var enemy = new MenuItem("enemyTowers", "Range of enemy towers").SetValue(true);
+            var jarak = new MenuItem("attackrange", "Range of hero attack").SetValue(true);
 
             ownTowers = ally.GetValue<bool>();
             enemyTowers = enemy.GetValue<bool>();
+            attackrange= jarak.GetValue<bool>();
 
             ally.ValueChanged += MenuItem_ValueChanged;
             enemy.ValueChanged += MenuItem_ValueChanged;
+            jarak.ValueChanged += MenuItem_ValueChanged;
 
             Menu.AddItem(ally);
             Menu.AddItem(enemy);
+            Menu.AddItem(jarak);
 
             Menu.AddToMainMenu();
 
-            HandleTowers();
+            DisplayRange();
             Game.OnFireEvent += Game_OnFireEvent;
-            if (rangeDisplay == null)
-            {
-                return;
-            }
-            rangeDisplay = null;
         }
 
         // ReSharper disable once InconsistentNaming
@@ -53,7 +52,7 @@ namespace TehPucuk
             if (item.Name == "ownTowers") ownTowers = e.GetNewValue<bool>();
             else enemyTowers = e.GetNewValue<bool>();
 
-            HandleTowers();
+            DisplayRange();
         }
 
         private static void Game_OnFireEvent(FireEventEventArgs args)
@@ -62,26 +61,35 @@ namespace TehPucuk
             {
                 var state = (GameState) args.GameEvent.GetInt("new_state");
                 if (state == GameState.Started || state == GameState.Prestart )
-                HandleTowers();
-                rangeDisplay = null;
-                HandleRange();
-                
+                    DisplayRange();
             }
-            
         }
 
-        private static void HandleRange()
+        private static void DisplayRange()
         {
-            if (me == null || !me.IsValid)
+            if (!Game.IsInGame)
+                return;
+
+            foreach (var e in Effects)
             {
-                me = ObjectMgr.LocalHero;
-                if (rangeDisplay == null)
-                {
-                    return;
-                }
-                rangeDisplay = null;
+                e.Dispose();
+            }
+            Effects.Clear();
+
+            var player = ObjectMgr.LocalPlayer;
+            if (rangeDisplay == null)
+            {
                 return;
             }
+            rangeDisplay = null;			
+            if (player == null)
+                return;
+            var towers =
+                ObjectMgr.GetEntities<Building>()
+                    .Where(x => x.IsAlive && x.ClassID == ClassID.CDOTA_BaseNPC_Tower)
+                    .ToList();
+            if (!towers.Any())
+                return;
             if (rangeDisplay == null)
             {
                 rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
@@ -98,28 +106,6 @@ namespace TehPucuk
                     rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
                 }
             }
-        }
-        private static void HandleTowers()
-        {
-            if (!Game.IsInGame)
-                return;
-
-            foreach (var e in Effects)
-            {
-                e.Dispose();
-            }
-            Effects.Clear();
-
-            var player = ObjectMgr.LocalPlayer;
-            if (player == null)
-                return;
-            var towers =
-                ObjectMgr.GetEntities<Building>()
-                    .Where(x => x.IsAlive && x.ClassID == ClassID.CDOTA_BaseNPC_Tower)
-                    .ToList();
-            if (!towers.Any())
-                return;
-            
             if (player.Team == Team.Observer)
             {
                 foreach (var effect in towers.Select(tower => tower.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf")))
