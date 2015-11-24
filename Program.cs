@@ -62,7 +62,25 @@ namespace TehPucuk
             {
                 var state = (GameState) args.GameEvent.GetInt("new_state");
                 if (state == GameState.Started || state == GameState.Prestart )
-                    HandleTowers();
+                HandleTowers();
+                rangeDisplay = null;
+                HandleRange();
+                
+            }
+            
+        }
+
+        private static void HandleRange()
+        {
+            if (me == null || !me.IsValid)
+            {
+                me = ObjectMgr.LocalHero;
+                if (rangeDisplay == null)
+                {
+                    return;
+                }
+                rangeDisplay = null;
+                return;
             }
             if (rangeDisplay == null)
             {
@@ -81,7 +99,6 @@ namespace TehPucuk
                 }
             }
         }
-
         private static void HandleTowers()
         {
             if (!Game.IsInGame)
