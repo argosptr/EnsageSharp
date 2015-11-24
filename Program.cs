@@ -87,10 +87,7 @@ namespace TehPucuk
                     .ToList();
             if (!towers.Any())
                 return;
-			if (!jarSer)
-			{
-				rangeDisplay.Dispose();
-			}
+
 			if (rangeDisplay == null)
 			{
 				rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
@@ -105,6 +102,10 @@ namespace TehPucuk
 					rangeDisplay.Dispose();
 					rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
 					rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
+					if (!jarSer)
+					{
+						rangeDisplay.Dispose();
+					}
 				}
 			}
 			
