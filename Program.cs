@@ -78,10 +78,6 @@ namespace TehPucuk
             Effects.Clear();
             me = ObjectMgr.LocalHero;
             var player = ObjectMgr.LocalPlayer;
-            if (rangeDisplay == null)
-            {
-                return;
-            }
             rangeDisplay = null;			
             if (player == null)
                 return;
