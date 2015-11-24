@@ -17,6 +17,7 @@ namespace TehPucuk
 		private static float lastRange;
 		private static Hero me;
         private static readonly Menu Menu = new Menu("Display", "towerRange", true);
+        private static readonly Dictionary<Unit, ParticleEffect> Effects = new Dictionary<Unit, ParticleEffect>();
         // ReSharper disable once CollectionNeverQueried.Local
         private static readonly List<ParticleEffect> Effects = new List<ParticleEffect>(); // keep references
 
@@ -70,7 +71,7 @@ namespace TehPucuk
 		        var player = ObjectMgr.LocalPlayer;
 			var units = ObjectMgr.GetEntities<Unit>().Where(
 			x =>
-			x.ClassID != ClassID.CDOTA_BaseNPC_Creep_Lane && x.Team == player.Team).ToList();
+			(x.ClassID != ClassID.CDOTA_BaseNPC_Creep_Lane) && x.Team == player.Team).ToList();
             foreach (var unit in units)
             {
                 HandleEffect(unit);
