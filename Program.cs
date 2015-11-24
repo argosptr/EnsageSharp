@@ -68,7 +68,9 @@ namespace TehPucuk
 
 		
 		
-			var units = ObjectMgr.GetEntities<Unit>().Where(x.ClassID != ClassID.CDOTA_BaseNPC_Creep_Lane && x.Team == player.Team)
+			var units = ObjectMgr.GetEntities<Unit>().Where(
+			x =>
+			x.ClassID != ClassID.CDOTA_BaseNPC_Creep_Lane && x.Team == player.Team).ToList();
             foreach (var unit in units)
             {
                 HandleEffect(unit);
