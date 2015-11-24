@@ -65,7 +65,7 @@ namespace TehPucuk
                     DisplayRange();
             }
         
-
+//Aura Keliatan di map
 		
 		        var player = ObjectMgr.LocalPlayer;
 			var units = ObjectMgr.GetEntities<Unit>().Where(
@@ -98,27 +98,8 @@ namespace TehPucuk
                 }
             }
         }		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+//End Of Keliatan di map		
 		
         private static void DisplayRange()
         {
