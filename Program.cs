@@ -79,7 +79,7 @@ namespace TehPucuk
                     stick.UseAbility();
                     Utils.Sleep(250, "AutoItems");
                 }
-                if (wand != null && wand.CanBeCasted())
+                if (wand != null && wand.CanBeCasted() && !me.IsInvisible())
                 {
                     wand.UseAbility();
                     Utils.Sleep(250, "AutoItems");
