@@ -15,6 +15,7 @@ namespace TehPucuk
         private static bool attackrange = true;
 		private static ParticleEffect rangeDisplay;
 		private static float lastRange;
+		private static Hero player;
         private static readonly Menu Menu = new Menu("Display", "towerRange", true);
         // ReSharper disable once CollectionNeverQueried.Local
         private static readonly List<ParticleEffect> Effects = new List<ParticleEffect>(); // keep references
