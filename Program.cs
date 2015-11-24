@@ -75,6 +75,7 @@ namespace TehPucuk
             {
                 e.Dispose();
             }
+            rangedisplay.Dispose();
             Effects.Clear();
             me = ObjectMgr.LocalHero;
             var player = ObjectMgr.LocalPlayer;
@@ -132,10 +133,6 @@ namespace TehPucuk
 		                    rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
 		                }
 		            }
-	            }
-	            else
-	            {
-	            	rangeDisplay.Dispose();
 	            }
             }
         }
