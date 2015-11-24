@@ -17,8 +17,7 @@ namespace TehPucuk
 		private static float lastRange;
 		private static Hero me;
         private static readonly Menu Menu = new Menu("Display", "towerRange", true);
-        private static readonly Dictionary<Unit, ParticleEffect> Effects = new Dictionary<Unit, ParticleEffect>();
-        // ReSharper disable once CollectionNeverQueried.Local
+        private static readonly Dictionary<Unit> Effects = new Dictionary<Unit>();
         private static readonly List<ParticleEffect> Effects = new List<ParticleEffect>(); // keep references
 
         private static void Main()
