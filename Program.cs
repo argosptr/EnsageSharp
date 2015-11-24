@@ -75,7 +75,7 @@ namespace TehPucuk
             {
                 e.Dispose();
             }
-            rangedisplay.Dispose();
+            rangeDisplay.Dispose();
             Effects.Clear();
             me = ObjectMgr.LocalHero;
             var player = ObjectMgr.LocalPlayer;
