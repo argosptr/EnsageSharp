@@ -92,17 +92,17 @@ namespace TehPucuk
                 return;
             if (rangeDisplay == null)
             {
-                rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
-                lastRange = me.GetAttackRange() + me.HullRadius + 25;
+                rangeDisplay = player.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
+                lastRange = player.GetAttackRange() + player.HullRadius + 25;
                 rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
             }
             else
             {
-                if (lastRange != (me.GetAttackRange() + me.HullRadius + 25))
+                if (lastRange != (player.GetAttackRange() + player.HullRadius + 25))
                 {
-                    lastRange = me.GetAttackRange() + me.HullRadius + 25;
+                    lastRange = player.GetAttackRange() + player.HullRadius + 25;
                     rangeDisplay.Dispose();
-                    rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
+                    rangeDisplay = player.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
                     rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
                 }
             }
