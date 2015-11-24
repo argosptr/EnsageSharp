@@ -17,7 +17,7 @@ namespace TehPucuk
 		private static float lastRange;
 		private static Hero me;
         private static readonly Menu Menu = new Menu("Display", "towerRange", true);
-        private static readonly Dictionary<Unit> Effects = new Dictionary<Unit>();
+	private static readonly Dictionary<Unit, ParticleEffect> Efek = new Dictionary<Unit, ParticleEffect>();
         private static readonly List<ParticleEffect> Effects = new List<ParticleEffect>(); // keep references
 
         private static void Main()
@@ -82,19 +82,19 @@ namespace TehPucuk
             if (unit.IsVisibleToEnemies && unit.IsAlive)
             {
                 ParticleEffect effect;
-                if (!Effects.TryGetValue(unit, out effect))
+                if (!Efek.TryGetValue(unit, out effect))
                 {
                     effect = unit.AddParticleEffect("particles/items_fx/aura_shivas.vpcf");
-                    Effects.Add(unit, effect);
+                    Efek.Add(unit, effect);
                 }
             }
             else
             {
                 ParticleEffect effect;
-                if (Effects.TryGetValue(unit, out effect))
+                if (Efek.TryGetValue(unit, out effect))
                 {
                     effect.Dispose();
-                    Effects.Remove(unit);
+                    Efek.Remove(unit);
                 }
             }
         }		
