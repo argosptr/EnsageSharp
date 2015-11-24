@@ -69,10 +69,10 @@ namespace TehPucuk
  
 
 //Auto Stick 
-			me = ObjectMgr.LocalHero;
- 			var stick = me.FindItem("item_magic_stick");
+	    me = ObjectMgr.LocalHero;
+ 	    var stick = me.FindItem("item_magic_stick");
             var wand = me.FindItem("item_magic_wand");
-            if (me.Health*100/me.MaximumHealth <= 30)
+            if (me.Health*100/me.MaximumHealth <= 25)
             {
                 if (stick != null && stick.CanBeCasted() && !me.IsInvisible())
                 {
