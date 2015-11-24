@@ -67,7 +67,7 @@ namespace TehPucuk
         
 
 		
-		
+		        var player = ObjectMgr.LocalPlayer;
 			var units = ObjectMgr.GetEntities<Unit>().Where(
 			x =>
 			x.ClassID != ClassID.CDOTA_BaseNPC_Creep_Lane && x.Team == player.Team).ToList();
