@@ -75,11 +75,11 @@ namespace TehPucuk
             {
                 e.Dispose();
             }
-            rangeDisplay.Dispose();
+
             Effects.Clear();
             me = ObjectMgr.LocalHero;
             var player = ObjectMgr.LocalPlayer;
-			
+            rangeDisplay = null;			
             if (player == null)
                 return;
             var towers =
