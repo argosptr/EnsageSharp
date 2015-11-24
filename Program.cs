@@ -87,7 +87,7 @@ namespace TehPucuk
                     .ToList();
             if (!towers.Any())
                 return;
-            if (rangeDisplay == null)
+            if (attackrange)
             {
                 rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
                 lastRange = me.GetAttackRange() + me.HullRadius + 25;
