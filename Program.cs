@@ -12,7 +12,7 @@ namespace TehPucuk
     {
         private static bool ownTowers = true;
         private static bool enemyTowers = true;
-        private static bool attackrange = true;
+        private static bool jarSer = true;
 		private static ParticleEffect rangeDisplay;
 		private static float lastRange;
 		private static Hero me;
@@ -24,11 +24,11 @@ namespace TehPucuk
         {
             var ally = new MenuItem("ownTowers", "Range of allied towers").SetValue(true);
             var enemy = new MenuItem("enemyTowers", "Range of enemy towers").SetValue(true);
-            var jarak = new MenuItem("attackrange", "Range of hero attack").SetValue(true);
+            var jarak = new MenuItem("JarSer", "Range of hero attack").SetValue(true);
 
             ownTowers = ally.GetValue<bool>();
             enemyTowers = enemy.GetValue<bool>();
-            attackrange= jarak.GetValue<bool>();
+            JarSer = jarak.GetValue<bool>();
 
             ally.ValueChanged += MenuItem_ValueChanged;
             enemy.ValueChanged += MenuItem_ValueChanged;
@@ -75,7 +75,6 @@ namespace TehPucuk
             {
                 e.Dispose();
             }
-
             Effects.Clear();
             me = ObjectMgr.LocalHero;
             var player = ObjectMgr.LocalPlayer;
@@ -88,7 +87,22 @@ namespace TehPucuk
                     .ToList();
             if (!towers.Any())
                 return;
-
+            if (rangeDisplay == null)
+            {
+                rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
+                lastRange = me.GetAttackRange() + me.HullRadius + 25;
+                rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
+            }
+            else
+            {
+                if (lastRange != (me.GetAttackRange() + me.HullRadius + 25))
+                {
+                    lastRange = me.GetAttackRange() + me.HullRadius + 25;
+                    rangeDisplay.Dispose();
+                    rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
+                    rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
+                }
+            }
             if (player.Team == Team.Observer)
             {
                 foreach (var effect in towers.Select(tower => tower.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf")))
@@ -115,25 +129,6 @@ namespace TehPucuk
                         Effects.Add(effect);
                     }
                 }
-	            if (attackrange)
-	            {
-		            if (rangeDisplay == null)
-		            {
-		                rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
-		                lastRange = me.GetAttackRange() + me.HullRadius + 25;
-		                rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
-		            }
-		            else
-		            {
-		                if (lastRange != (me.GetAttackRange() + me.HullRadius + 25))
-		                {
-		                    lastRange = me.GetAttackRange() + me.HullRadius + 25;
-		                    rangeDisplay.Dispose();
-		                    rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
-		                    rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
-		                }
-		            }
-	            }
             }
         }
     }
