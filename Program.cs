@@ -64,8 +64,60 @@ namespace TehPucuk
                 if (state == GameState.Started || state == GameState.Prestart )
                     DisplayRange();
             }
+        
+
+		
+		
+			var units = ObjectMgr.GetEntities<Unit>().Where(x.ClassID != ClassID.CDOTA_BaseNPC_Creep_Lane && x.Team == player.Team)
+            foreach (var unit in units)
+            {
+                HandleEffect(unit);
+            }
         }
 
+        static void HandleEffect(Unit unit)
+        {
+            if (unit.IsVisibleToEnemies && unit.IsAlive)
+            {
+                ParticleEffect effect;
+                if (!Effects.TryGetValue(unit, out effect))
+                {
+                    effect = unit.AddParticleEffect("particles/items_fx/aura_shivas.vpcf");
+                    Effects.Add(unit, effect);
+                }
+            }
+            else
+            {
+                ParticleEffect effect;
+                if (Effects.TryGetValue(unit, out effect))
+                {
+                    effect.Dispose();
+                    Effects.Remove(unit);
+                }
+            }
+        }		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
         private static void DisplayRange()
         {
             if (!Game.IsInGame)
@@ -87,28 +139,22 @@ namespace TehPucuk
                     .ToList();
             if (!towers.Any())
                 return;
-
-			if (rangeDisplay == null)
-			{
-				rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
-				lastRange = me.GetAttackRange() + me.HullRadius + 25;
-				rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
-			}
-			else
-			{
-				if (lastRange != (me.GetAttackRange() + me.HullRadius + 25))
-				{
-					lastRange = me.GetAttackRange() + me.HullRadius + 25;
-					rangeDisplay.Dispose();
-					rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
-					rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
-					if (!jarSer)
-					{
-						rangeDisplay.Dispose();
-					}
-				}
-			}
-			
+            if (rangeDisplay == null)
+            {
+                rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
+                lastRange = me.GetAttackRange() + me.HullRadius + 25;
+                rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
+            }
+            else
+            {
+                if (lastRange != (me.GetAttackRange() + me.HullRadius + 25))
+                {
+                    lastRange = me.GetAttackRange() + me.HullRadius + 25;
+                    rangeDisplay.Dispose();
+                    rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
+                    rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
+                }
+            }
             if (player.Team == Team.Observer)
             {
                 foreach (var effect in towers.Select(tower => tower.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf")))
