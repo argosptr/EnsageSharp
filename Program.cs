@@ -64,10 +64,29 @@ namespace TehPucuk
                 if (state == GameState.Started || state == GameState.Prestart )
                     DisplayRange();
             }
-        
+ 
+
+//Auto Stick 
+			me = ObjectMgr.LocalHero;
+ 			var stick = me.FindItem("item_magic_stick");
+            var wand = me.FindItem("item_magic_wand");
+            if (me.Health*100/me.MaximumHealth <= 30)
+            {
+                if (stick != null && stick.CanBeCasted() && !me.IsInvisible())
+                {
+                    stick.UseAbility();
+                    Utils.Sleep(250, "AutoItems");
+                }
+                if (wand != null && wand.CanBeCasted())
+                {
+                    wand.UseAbility();
+                    Utils.Sleep(250, "AutoItems");
+                }
+            }
+ 
 //Aura Keliatan di map
 		
-		        var player = ObjectMgr.LocalPlayer;
+		    var player = ObjectMgr.LocalPlayer;
 			var units = ObjectMgr.GetEntities<Unit>().Where(
 			x =>
 			(x.ClassID != ClassID.CDOTA_BaseNPC_Creep_Lane) && x.Team == player.Team).ToList();
@@ -99,7 +118,7 @@ namespace TehPucuk
             }
         }		
 
-//End Of Keliatan di map		
+
 		
         private static void DisplayRange()
         {
@@ -154,7 +173,6 @@ namespace TehPucuk
                     {
                         effect.SetControlPoint(1, new Vector3(850, 0, 0));
                         Effects.Add(effect);
-
                     }
                 }
                 if (ownTowers)
