@@ -15,7 +15,7 @@ namespace TehPucuk
         private static bool attackrange = true;
 		private static ParticleEffect rangeDisplay;
 		private static float lastRange;
-		private static Hero player;
+		private static Hero me;
         private static readonly Menu Menu = new Menu("Display", "towerRange", true);
         // ReSharper disable once CollectionNeverQueried.Local
         private static readonly List<ParticleEffect> Effects = new List<ParticleEffect>(); // keep references
@@ -76,7 +76,7 @@ namespace TehPucuk
                 e.Dispose();
             }
             Effects.Clear();
-
+            me = ObjectMgr.LocalHero;
             var player = ObjectMgr.LocalPlayer;
             if (rangeDisplay == null)
             {
@@ -93,17 +93,17 @@ namespace TehPucuk
                 return;
             if (rangeDisplay == null)
             {
-                rangeDisplay = player.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
-                lastRange = player.GetAttackRange() + player.HullRadius + 25;
+                rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
+                lastRange = me.GetAttackRange() + me.HullRadius + 25;
                 rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
             }
             else
             {
-                if (lastRange != (player.GetAttackRange() + player.HullRadius + 25))
+                if (lastRange != (me.GetAttackRange() + me.HullRadius + 25))
                 {
-                    lastRange = player.GetAttackRange() + player.HullRadius + 25;
+                    lastRange = me.GetAttackRange() + me.HullRadius + 25;
                     rangeDisplay.Dispose();
-                    rangeDisplay = player.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
+                    rangeDisplay = me.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
                     rangeDisplay.SetControlPoint(1, new Vector3(lastRange, 0, 0));
                 }
             }
