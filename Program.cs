@@ -154,7 +154,7 @@ namespace TehPucuk
                     {
                         effect.SetControlPoint(1, new Vector3(850, 0, 0));
                         Effects.Add(effect);
-                        Game.ExecuteCommand("say_team SUKSES");
+
                     }
                 }
                 if (ownTowers)
