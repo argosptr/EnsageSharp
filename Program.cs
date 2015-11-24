@@ -24,11 +24,11 @@ namespace TehPucuk
         {
             var ally = new MenuItem("ownTowers", "Range of allied towers").SetValue(true);
             var enemy = new MenuItem("enemyTowers", "Range of enemy towers").SetValue(true);
-            var jarak = new MenuItem("JarSer", "Range of hero attack").SetValue(true);
+            var jarak = new MenuItem("jarSer", "Range of hero attack").SetValue(true);
 
             ownTowers = ally.GetValue<bool>();
             enemyTowers = enemy.GetValue<bool>();
-            JarSer = jarak.GetValue<bool>();
+            jarSer = jarak.GetValue<bool>();
 
             ally.ValueChanged += MenuItem_ValueChanged;
             enemy.ValueChanged += MenuItem_ValueChanged;
