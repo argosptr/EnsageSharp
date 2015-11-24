@@ -19,6 +19,7 @@ namespace Timings
 
         private static float linaTime, bhTime, torrentTime, mysticFlareTime, linaTimer, bhTimer, torrentTimer, leshTime, leshTimer, stormTime, stormTimer;
         private static string time = "cakescript1224";
+        
 
         private static readonly List<string> IgnoreList = new List<string>()
             {
@@ -148,11 +149,9 @@ namespace Timings
                                     break;
                                 case "modifier_invoker_sun_strike":
                                     random = true;
-									Game.ExecuteCommand("say_team Sunstrike coeg");
                                     break;
                                 case "modifier_spirit_breaker_charge_of_darkness_vision":
-                                    time = "ARGHH !";
-									Game.ExecuteCommand("say_team SB cas coeg");
+                                    time = "CAASSSS";
                                     break;
                                 default:
                                     random = true;
@@ -204,6 +203,11 @@ namespace Timings
                     if (SpecialCases.Contains(args.Modifier.Name))
                         switch (modif.Name)
                         {
+                            case "modifier_spirit_breaker_charge_of_darkness_vision":
+                            	{
+				    Game.ExecuteCommand("say_team SB cas coeg");
+                            	}
+                            	break;
                             case "modifier_lina_light_strike_array":
                                 {
                                     linaTime = Game.GameTime;
@@ -251,6 +255,7 @@ namespace Timings
                                 {
                                     var effect = unit.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
                                     effect.SetControlPoint(1, new Vector3(175, 0, 0));
+                                    Game.ExecuteCommand("say_team Sunstrike coeg, stop!");
                                 }
                                 break;
                         }
