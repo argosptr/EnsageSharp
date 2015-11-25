@@ -68,23 +68,7 @@ namespace TehPucuk
             }
  
 
-//Auto Stick 
-	    me = ObjectMgr.LocalHero;
- 	    var stick = me.FindItem("item_magic_stick");
-            var wand = me.FindItem("item_magic_wand");
-            if (me.Health*100/me.MaximumHealth <= 25)
-            {
-                if (stick != null && stick.CanBeCasted() && !me.IsInvisible())
-                {
-                    stick.UseAbility();
-                    Utils.Sleep(250, "AutoItems");
-                }
-                if (wand != null && wand.CanBeCasted() && !me.IsInvisible())
-                {
-                    wand.UseAbility();
-                    Utils.Sleep(250, "AutoItems");
-                }
-            }
+
  
 //Aura Keliatan di map
 		
