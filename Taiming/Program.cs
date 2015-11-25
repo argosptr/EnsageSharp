@@ -205,7 +205,7 @@ namespace Timings
                         {
                             case "modifier_spirit_breaker_charge_of_darkness_vision":
                             	{
-				    Game.ExecuteCommand("say_team SB cas coeg");
+				    Game.ExecuteCommand("say_team Brummm Brummm");
                             	}
                             	break;
                             case "modifier_lina_light_strike_array":
@@ -255,7 +255,7 @@ namespace Timings
                                 {
                                     var effect = unit.AddParticleEffect(@"particles\ui_mouseactions\range_display.vpcf");
                                     effect.SetControlPoint(1, new Vector3(175, 0, 0));
-                                    Game.ExecuteCommand("say_team Sunstrike coeg, stop!");
+                                    Game.ExecuteCommand("say_team Ciuuuuuu");
                                 }
                                 break;
                         }
