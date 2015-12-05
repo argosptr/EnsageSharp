@@ -72,10 +72,12 @@ namespace TehPucuk
  
 //Aura Keliatan di map
 		
-		    var player = ObjectMgr.LocalPlayer;
-			var units = ObjectMgr.GetEntities<Unit>().Where(
+		var player = ObjectMgr.LocalPlayer;
+		var units = ObjectMgr.GetEntities<Unit>().Where(
 			x =>
 			(x.ClassID != ClassID.CDOTA_BaseNPC_Creep_Lane) && x.Team == player.Team).ToList();
+		if (player.Hero == null)
+		return;
             foreach (var unit in units)
             {
                 HandleEffect(unit);
