@@ -15,6 +15,7 @@ namespace TehPucuk
         private static bool ownTowers = true;
         private static bool enemyTowers = true;
         private static bool jarSer = true;
+        private static bool inGame = false;
 		private static ParticleEffect rangeDisplay;
 		private static float lastRange;
 		private static Hero me;
@@ -60,6 +61,21 @@ namespace TehPucuk
 
         private static void Game_OnFireEvent(FireEventEventArgs args)
         {
+            #region Fundamentals
+            Hero me = ObjectMgr.LocalHero;
+            if (!inGame)
+            {
+                if (!Game.IsInGame || me == null)
+                    return;
+                inGame = true;
+                Print.Success("Jalan");
+            }
+            if (!Game.IsInGame || me == null)
+            {
+                inGame = false;
+                return;
+            }
+            #endregion
             if (args.GameEvent.Name == "dota_game_state_change")
             {
                 var state = (GameState) args.GameEvent.GetInt("new_state");
