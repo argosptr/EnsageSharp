@@ -68,7 +68,6 @@ namespace TehPucuk
                 if (!Game.IsInGame || me == null)
                     return;
                 inGame = true;
-                Print.Success("Jalan");
             }
             if (!Game.IsInGame || me == null)
             {
